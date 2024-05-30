@@ -87,9 +87,9 @@ void Enter_Report(char car_num[CarNum_Max], char car_type[CarType_Max], int ente
     printf("车牌号为 %s的%s车辆在%d时%d分进入停车场,停在%c区%d号车位\n", car_num, car_type, enter_time/60,enter_time%60,Dis_Name[dis], space);
 }
 
-void Leave_Report(char car_num[CarNum_Max], char car_type[CarType_Max], int enter_time, int leave_time, int price, int dis, int space)
+void Leave_Report(char car_num[CarNum_Max], char car_type[CarType_Max], int enter_time, int leave_time,int Occ_time, int price, int dis, int space)
 {
-    printf("车牌号为 %s的%s车辆在%d时%d分进入停车场,停在%c区%d号车位,%d时%d分离开,共停留%d分钟,应缴费%d元\n", car_num, car_type,  enter_time/60,enter_time%60,Dis_Name[dis], space, leave_time/60,leave_time%60,leave_time - enter_time, price);
+    printf("车牌号为 %s的%s车辆在%d时%d分进入停车场,停在%c区%d号车位,%d时%d分离开,共停留%d分钟,应缴费%d元\n", car_num, car_type,  enter_time/60,enter_time%60,  Dis_Name[dis], space, leave_time/60,leave_time%60,Occ_time, price);
 }
 
 void Park_Car(char car_num[CarNum_Max], char car_type[CarType_Max], int enter_time)
@@ -144,7 +144,7 @@ void Leave_Car(char car_num[CarNum_Max], int leave_time)
                     Occ_time+=24*60;
                 }
                 price = Pricing(Occ_time);
-                Leave_Report(car_num, parkinglot[i][j].car_type, parkinglot[i][j].enter_time, leave_time, price, i + 1, j + 1);
+                Leave_Report(car_num, parkinglot[i][j].car_type, parkinglot[i][j].enter_time, leave_time,Occ_time, price, i + 1, j + 1);
                 // leaving
                 parkinglot[i][j].status = Empty;
                 parkinglot[i][j].enter_time = -1;

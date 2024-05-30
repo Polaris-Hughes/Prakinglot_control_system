@@ -10,7 +10,7 @@
 int Find_MinDis(int dis_count[]);
 int Pricing(int time);
 int is_carnum_valid(char car_num[]);
-void Leave_Report(char car_num[], char car_type[], int enter_time, int leave_time, int price, int dis, int space);
+void Leave_Report(char car_num[], char car_type[], int enter_time, int leave_time, int Occ_time,int price, int dis, int space);
 void Park_Car(char car_num[], char car_type[], int enter_time);
 void Leave_Car(char car_num[], int leave_time);
 void check_empty_space();
