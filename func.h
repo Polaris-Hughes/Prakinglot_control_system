@@ -81,14 +81,15 @@ int is_carnum_valid(char* car_num)
     return 1; // 车牌合法
 }
 
+
 void Enter_Report(char car_num[CarNum_Max], char car_type[CarType_Max], int enter_time, int dis, int space)
 {
-    printf("车牌号为 %s的%s车辆在%d时进入停车场,停在%c区%d号车位\n", car_num, car_type, enter_time,Dis_Name[dis], space);
+    printf("车牌号为 %s的%s车辆在%d时%d分进入停车场,停在%c区%d号车位\n", car_num, car_type, enter_time/60,enter_time%60,Dis_Name[dis], space);
 }
 
 void Leave_Report(char car_num[CarNum_Max], char car_type[CarType_Max], int enter_time, int leave_time, int price, int dis, int space)
 {
-    printf("车牌号为 %s的%s车辆在%d时进入停车场,停在%c区%d号车位,%d时离开,共停留%d分钟,应缴费%d元\n", car_num, car_type, enter_time,Dis_Name[dis], space,leave_time,leave_time - enter_time, price);
+    printf("车牌号为 %s的%s车辆在%d时%d分进入停车场,停在%c区%d号车位,%d时%d分离开,共停留%d分钟,应缴费%d元\n", car_num, car_type,  enter_time/60,enter_time%60,Dis_Name[dis], space, leave_time/60,leave_time%60,leave_time - enter_time, price);
 }
 
 void Park_Car(char car_num[CarNum_Max], char car_type[CarType_Max], int enter_time)
@@ -138,6 +139,10 @@ void Leave_Car(char car_num[CarNum_Max], int leave_time)
             {
                 // report and charge
                 Occ_time = leave_time - parkinglot[i][j].enter_time;
+                while(Occ_time<0)
+                {
+                    Occ_time+=24*60;
+                }
                 price = Pricing(Occ_time);
                 Leave_Report(car_num, parkinglot[i][j].car_type, parkinglot[i][j].enter_time, leave_time, price, i + 1, j + 1);
                 // leaving
@@ -167,7 +172,7 @@ void check_empty_space()
             }
             
         }
-        printf("%c区域还有%d个空位\n", Dis_Name[i], empty_count);
+        printf("%c区域还有%d个空位\n", Dis_Name[i+1], empty_count);
     }
 }
 
@@ -207,9 +212,9 @@ void search_cartype(char car_type[CarType_Max])
 
 void Init_Parking(int district, int spacenum_max)
 {
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < district; i++)
     {
-        for (int j = 0; j < 50; j++)
+        for (int j = 0; j < spacenum_max; j++)
         {
             parkinglot[i][j].district = i + 1;    // 例如，使用区号作为区域编号
             parkinglot[i][j].space_num = j + 1;   // 假设空间编号是连续的
