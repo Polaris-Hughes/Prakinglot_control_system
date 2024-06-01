@@ -78,7 +78,7 @@ void display_menu()
         printf("3. 检查空位\n");
         printf("4. 查找车辆位置\n");
         printf("5. 查找车型\n");
-        printf("6. 初始化停车场\n");
+        printf("6. 重置停车场\n");
         printf("7. 退出\n");
         printf("请选择操作（输入1-7）: ");
 
